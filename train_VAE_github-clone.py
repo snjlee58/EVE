@@ -13,8 +13,6 @@ if __name__=='__main__':
     parser.add_argument('--protein_index', type=int, help='Row index of protein in input mapping file')
     parser.add_argument('--MSA_weights_location', type=str, help='Location where weights for each sequence in the MSA will be stored')
     parser.add_argument('--theta_reweighting', type=float, help='Parameters for MSA sequence re-weighting')
-    parser.add_argument('--threshold_fragments', type=float, help='Parameters for MSA sequence row filtering')
-    parser.add_argument('--threshold_column_coverage', type=float, help='Parameters for MSA sequence column filtering')
     parser.add_argument('--VAE_checkpoint_location', type=str, help='Location where VAE model checkpoints will be stored')
     parser.add_argument('--model_name_suffix', default='Jan1', type=str, help='model checkpoint name will be the protein name followed by this suffix')
     parser.add_argument('--model_parameters_location', type=str, help='Location of VAE model parameters')
@@ -37,40 +35,14 @@ if __name__=='__main__':
             theta = 0.2
     print("Theta MSA re-weighting: "+str(theta))
 
-    if args.threshold_fragments is not None:
-        threshold_sequence_frac_gaps = args.threshold_fragments
-    else:
-        try:
-            threshold_sequence_frac_gaps = float(mapping_file['threshold_sequence_frac_gaps'][args.protein_index])
-        except:
-            threshold_sequence_frac_gaps=0.5
-    print("Sequence (fragment) gap threshold: "+str(threshold_sequence_frac_gaps))
-
-    if args.threshold_column_coverage is not None:
-        threshold_focus_cols_frac_gaps = args.threshold_column_coverage
-    else:
-        try:
-            threshold_focus_cols_frac_gaps = float(mapping_file['threshold_focus_cols_frac_gaps'][args.protein_index])
-        except:
-            threshold_focus_cols_frac_gaps=0.3
-    print("Focus column gap threshold: "+str(threshold_focus_cols_frac_gaps))
-
-    try:
-        seed = int(mapping_file['seed'][args.protein_index])
-    except:
-        seed=args.seed
-    print("seed: "+str(seed))
-
     data = data_utils.MSA_processing(
             MSA_location=msa_location,
             theta=theta,
-            threshold_sequence_frac_gaps=threshold_sequence_frac_gaps,
-            threshold_focus_cols_frac_gaps=threshold_focus_cols_frac_gaps,
             use_weights=True,
             weights_location=args.MSA_weights_location + os.sep + protein_name + '_theta_' + str(theta) + '.npy'
     )
 
-    model_name = protein_name + '_theta_' + str(theta) + '_' + args.model_name_suffix
+    model_name = protein_name + "_" + args.model_name_suffix
     print("Model name: "+str(model_name))
 
     model_params = json.load(open(args.model_parameters_location))
@@ -80,7 +52,7 @@ if __name__=='__main__':
                     data=data,
                     encoder_parameters=model_params["encoder_parameters"],
                     decoder_parameters=model_params["decoder_parameters"],
-                    random_seed=seed
+                    random_seed=args.seed
     )
     model = model.to(model.device)
 

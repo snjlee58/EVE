@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "train_VAE.py", line 70, in <module>
+    weights_location=args.MSA_weights_location + os.sep + protein_name + '_theta_' + str(theta) + '.npy'
+  File "/n/groups/marks/users/sunny/EVE/utils/data_utils.py", line 51, in __init__
+    self.gen_alignment()
+  File "/n/groups/marks/users/sunny/EVE/utils/data_utils.py", line 109, in gen_alignment
+    start,stop = focus_loc.split("-")
+ValueError: not enough values to unpack (expected 2, got 1)
+srun: error: compute-g-17-160: task 0: Exited with exit code 1

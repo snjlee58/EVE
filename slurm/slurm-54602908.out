@@ -1,0 +1,8 @@
+Protein name: sarscov2_spike
+MSA file: /n/groups/marks/users/sunny/cross-neutralization/nextstrain_dataset_processed/translation_S_reference_first_nostop_stdaa_unique.fasta
+Theta MSA re-weighting: 0.01
+Sequence (fragment) gap threshold: 0.5
+Focus column gap threshold: 0.5
+seed: 1000
+Proportion of sequences dropped due to fraction of gaps: 0.0%
+Proportion of non-focus columns removed: 0.0%

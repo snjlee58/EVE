@@ -1,0 +1,2 @@
+protein_name,msa_location,theta,threshold_sequence_frac_gaps,threshold_focus_cols_frac_gaps,seed
+sarscov2_spike,translation_S_reference_first_nostop_stdaa_unique.fasta,0.01,0.5,0.5,1000

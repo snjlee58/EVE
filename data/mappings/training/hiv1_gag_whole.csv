@@ -1,0 +1,2 @@
+protein_name,msa_location,theta,threshold_sequence_frac_gaps,threshold_focus_cols_frac_gaps,seed
+gag_polyprotein,HIV_NL4-3_Gag_whole_filtered_alignment.fasta,0.01,0.5,0.5,1000
